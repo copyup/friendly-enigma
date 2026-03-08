@@ -1,0 +1,339 @@
+{
+  "info": {
+    "name": "博客系统 API",
+    "description": "Rust 博客系统的完整 API 接口测试集合",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "文章管理",
+      "item": [
+        {
+          "name": "获取所有文章",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/posts"
+          }
+        },
+        {
+          "name": "获取已发布文章",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/posts/published"
+          }
+        },
+        {
+          "name": "创建文章",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/posts",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"我的第一篇文章\",\n  \"slug\": \"my-first-post\",\n  \"content\": \"# Hello World\\n\\n这是我的第一篇文章！\\n\\n## 内容\\n\\n这里是一些文本。\\n\\n```rust\\nfn main() {\\n    println!(\\\"Hello!\\\");\\n}\\n```\",\n  \"excerpt\": \"文章摘要\",\n  \"status\": \"published\"\n}"
+            }
+          }
+        },
+        {
+          "name": "更新文章",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/api/posts/{{post_id}}",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"更新后的标题\",\n  \"content\": \"更新后的内容\"\n}"
+            }
+          }
+        },
+        {
+          "name": "删除文章",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/posts/{{post_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "页面管理",
+      "item": [
+        {
+          "name": "获取所有页面",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/pages"
+          }
+        },
+        {
+          "name": "创建页面",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/pages",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"关于我\",\n  \"slug\": \"about\",\n  \"content\": \"# 关于我\\n\\n这是我的个人介绍页面。\",\n  \"is_published\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "更新页面",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/api/pages/{{page_id}}",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"更新后的标题\"\n}"
+            }
+          }
+        },
+        {
+          "name": "删除页面",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/pages/{{page_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "分类管理",
+      "item": [
+        {
+          "name": "获取所有分类",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/categories"
+          }
+        },
+        {
+          "name": "获取分类树",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/categories/tree"
+          }
+        },
+        {
+          "name": "创建顶级分类",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/categories",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"技术文章\",\n  \"slug\": \"tech\",\n  \"description\": \"技术相关的文章\"\n}"
+            }
+          }
+        },
+        {
+          "name": "创建子分类",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/categories",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rust\",\n  \"slug\": \"rust\",\n  \"parent_id\": \"父分类 UUID\",\n  \"description\": \"Rust 编程语言\"\n}"
+            }
+          }
+        },
+        {
+          "name": "更新分类",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/api/categories/{{category_id}}",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"新名称\"\n}"
+            }
+          }
+        },
+        {
+          "name": "删除分类",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/categories/{{category_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "MCP 接口",
+      "item": [
+        {
+          "name": "MCP - 创建文章",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/mcp",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation\": 1,\n  \"resource\": \"post\",\n  \"data\": {\n    \"title\": \"MCP 创建的文章\",\n    \"slug\": \"mcp-post\",\n    \"content\": \"# MCP 文章\\n\\n通过 MCP 接口创建\",\n    \"status\": \"published\"\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "MCP - 获取文章列表",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/mcp",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation\": 5,\n  \"resource\": \"post\",\n  \"params\": {\n    \"published\": true\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "MCP - 创建页面",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/mcp",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation\": 1,\n  \"resource\": \"page\",\n  \"data\": {\n    \"title\": \"MCP 页面\",\n    \"slug\": \"mcp-page\",\n    \"content\": \"# MCP 页面\\n\\n通过 MCP 创建\",\n    \"is_published\": true\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "MCP - 创建分类",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/mcp",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation\": 1,\n  \"resource\": \"category\",\n  \"data\": {\n    \"name\": \"MCP 分类\",\n    \"slug\": \"mcp-category\",\n    \"description\": \"通过 MCP 创建的分类\"\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "MCP - 更新资源",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/mcp",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation\": 3,\n  \"resource\": \"post\",\n  \"id\": \"文章 UUID\",\n  \"data\": {\n    \"title\": \"更新后的标题\"\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "MCP - 删除资源",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/mcp",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation\": 4,\n  \"resource\": \"post\",\n  \"id\": \"文章 UUID\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "前端页面",
+      "item": [
+        {
+          "name": "首页",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/"
+          }
+        },
+        {
+          "name": "文章列表页",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/posts"
+          }
+        },
+        {
+          "name": "分类页",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/categories"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+[source.crates-io]
+replace-with = 'aliyun'
+[source.aliyun]
+registry = "sparse+https://mirrors.aliyun.com/crates.io-index/"
+
+[target.x86_64-pc-windows-msvc]
+linker = "rust-lld"

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="我的博客 - 分享技术、生活和思考的博客">
+    <meta name="keywords" content="博客,技术,生活,思考">
+    <meta name="author" content="我的博客">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="首页 - 我的博客">
+    <meta property="og:description" content="我的博客 - 分享技术、生活和思考的博客">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="/">
+    <meta property="og:site_name" content="我的博客">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="首页 - 我的博客">
+    <meta name="twitter:description" content="我的博客 - 分享技术、生活和思考的博客">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="/">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "我的博客",
+        "description": "分享技术、生活和思考的博客",
+        "url": "https://tinlike.com",
+        "publisher": {
+            "@type": "Organization",
+            "name": "我的博客",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://tinlike.com/logo.png"
+            }
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://tinlike.com/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <!-- BlogPosting List Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": [
+        {% raw %}{% for post in posts %}{% endraw %}
+            {
+                "@type": "ListItem",
+                "position": {% raw %}{{ loop.index }}{% endraw %},
+                "item": {
+                    "@type": "BlogPosting",
+                    "headline": "{% raw %}{{ post.title }}{% endraw %}",
+                    "url": "https://tinlike.com/posts/{% raw %}{{ post.slug }}{% endraw %}",
+                    "datePublished": "{% raw %}{{ post.published_at|default(post.created_at) }}{% endraw %}",
+                    "dateModified": "{% raw %}{{ post.updated_at }}{% endraw %}",
+                    "author": {
+                        "@type": "Organization",
+                        "name": "我的博客"
+                    }
+                }
+            }{% raw %}{% if not loop.last %},{% endif %}{% endraw %}
+        {% raw %}{% endfor %}{% endraw %}
+        ]
+    }
+    </script>
+    
+    <title>首页 - 我的博客</title>
+    <link rel="stylesheet" href="/static/output.css">
+</head>
+<body class="bg-gray-100 text-gray-800 leading-relaxed">
+    <header class="bg-white shadow-sm mb-8">
+        <div class="max-w-6xl mx-auto px-5 py-5">
+            <h1 class="text-2xl font-bold">
+                <a href="/" class="text-gray-800 hover:text-primary-600 transition-colors">我的博客</a>
+            </h1>
+            <nav class="mt-4 space-x-5">
+                <a href="/" class="text-gray-600 hover:text-primary-600 transition-colors">首页</a>
+                <a href="/posts" class="text-gray-600 hover:text-primary-600 transition-colors">文章</a>
+                <a href="/categories" class="text-gray-600 hover:text-primary-600 transition-colors">分类</a>
+                <a href="/pages/about" class="text-gray-600 hover:text-primary-600 transition-colors">关于</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="bg-white rounded-lg shadow-sm p-8">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800">最新文章</h2>
+            <ul class="list-none">
+            {% for post in posts %}
+                <li class="py-6 border-b border-gray-200 last:border-b-0">
+                    <h3 class="text-2xl font-semibold mb-3">
+                        <a href="/posts/{{ post.slug }}" class="text-gray-800 hover:text-primary-600 transition-colors">{{ post.title }}</a>
+                    </h3>
+                    <a href="/posts/{{ post.slug }}" class="text-primary-600 hover:text-primary-700 transition-colors">阅读全文 →</a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <footer class="text-center py-8 text-gray-500 mt-8">
+        <div class="max-w-6xl mx-auto px-5">
+            <p>&copy; 2026 我的博客。All rights reserved。</p>
+        </div>
+    </footer>
+</body>
+</html>
